@@ -1,0 +1,407 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+		<RootNamespace>StarTruckerCustomRadio</RootNamespace>
+		<LangVersion>default</LangVersion>
+		<IsPackable>false</IsPackable>
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<FileVersion>1.0.0.0</FileVersion>
+		<NeutralLanguage>en-US</NeutralLanguage>
+		<AssemblyName>StarTruckerCustomRadio</AssemblyName>
+		<LangVersion>latest</LangVersion>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Reference Include="Assembly-CSharp">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Assembly-CSharp.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppCinemachine">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2CppCinemachine.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2Cppcom.darbotron.platformlayer.common">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2Cppcom.darbotron.platformlayer.common.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2Cppcom.darbotron.platformlayer">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2Cppcom.darbotron.platformlayer.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2Cppcom.darbotron.platformlayer.structs.win">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2Cppcom.darbotron.platformlayer.structs.win.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2Cppcom.darbotron.platformlayer.structs.winsteam">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2Cppcom.darbotron.platformlayer.structs.winsteam.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2Cppcom.darbotron.platformlayer.win">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2Cppcom.darbotron.platformlayer.win.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2Cppcom.darbotron.platformlayer.winsteam">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2Cppcom.darbotron.platformlayer.winsteam.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2Cppcom.rlabrecque.steamworks.net">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2Cppcom.rlabrecque.steamworks.net.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppFlatSharp.Runtime">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2CppFlatSharp.Runtime.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppMono.Security">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2CppMono.Security.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2Cppmscorlib">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2Cppmscorlib.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppOpencoding.CommandHandlers">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2CppOpencoding.CommandHandlers.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppOpencoding.Console">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2CppOpencoding.Console.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppOpencoding.LogHistory">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2CppOpencoding.LogHistory.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppOpencoding.Shared">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2CppOpencoding.Shared.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppParadoxNotion">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2CppParadoxNotion.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSonity.Public.Runtime">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2CppSonity.Public.Runtime.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSonity.Runtime">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2CppSonity.Runtime.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSpaceGraphicsToolkit">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2CppSpaceGraphicsToolkit.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSpaceGraphicsToolkit.Terrain">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2CppSpaceGraphicsToolkit.Terrain.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSystem.Configuration">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2CppSystem.Configuration.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSystem.Core">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2CppSystem.Core.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSystem">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2CppSystem.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSystem.IO.Compression">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2CppSystem.IO.Compression.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSystem.IO.Compression.FileSystem">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2CppSystem.IO.Compression.FileSystem.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSystem.Numerics">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2CppSystem.Numerics.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSystem.Xml">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2CppSystem.Xml.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppTemplateSonity">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2CppTemplateSonity.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2Cpp__Generated">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Il2Cpp__Generated.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Addressables">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Unity.Addressables.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Burst">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Unity.Burst.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Burst.Unsafe">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Unity.Burst.Unsafe.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Collections">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Unity.Collections.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Collections.LowLevel.ILSupport">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.InputSystem">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Unity.InputSystem.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.InputSystem.ForUI">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Unity.InputSystem.ForUI.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Mathematics">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Unity.Mathematics.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.ProBuilder">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Unity.ProBuilder.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.ProBuilder.KdTree">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Unity.ProBuilder.KdTree.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.ProBuilder.Poly2Tri">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Unity.ProBuilder.Poly2Tri.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.RenderPipelines.Core.Runtime">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.RenderPipelines.Universal.Runtime">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.ResourceManager">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Unity.ResourceManager.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Splines">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Unity.Splines.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.TextMeshPro">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Unity.TextMeshPro.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Timeline">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Unity.Timeline.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.VisualScripting.Core">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\Unity.VisualScripting.Core.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.AccessibilityModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.AccessibilityModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.AIModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.AIModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.AndroidJNIModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.AndroidJNIModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.AnimationModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.AnimationModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.ARModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.ARModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.AssetBundleModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.AssetBundleModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.AudioModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.AudioModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.ClothModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.ClothModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.ClusterInputModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.ClusterInputModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.ClusterRendererModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.ClusterRendererModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.CoreModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.CoreModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.CrashReportingModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.CrashReportingModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.DirectorModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.DirectorModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.DSPGraphModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.DSPGraphModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.GameCenterModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.GameCenterModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.GIModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.GIModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.GridModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.GridModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.HotReloadModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.HotReloadModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.ImageConversionModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.ImageConversionModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.IMGUIModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.IMGUIModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.InputLegacyModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.InputLegacyModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.InputModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.InputModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.JSONSerializeModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.JSONSerializeModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.LocalizationModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.LocalizationModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.NVIDIAModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.NVIDIAModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.ParticleSystemModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.ParticleSystemModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.PerformanceReportingModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.PerformanceReportingModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.Physics2DModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.Physics2DModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.PhysicsModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.PhysicsModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.ProfilerModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.ProfilerModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.ScreenCaptureModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.ScreenCaptureModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.SharedInternalsModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.SharedInternalsModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.SpriteMaskModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.SpriteMaskModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.SpriteShapeModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.SpriteShapeModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.StreamingModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.StreamingModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.SubstanceModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.SubstanceModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.SubsystemsModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.SubsystemsModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.TerrainModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.TerrainModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.TerrainPhysicsModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.TerrainPhysicsModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.TextCoreFontEngineModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.TextCoreFontEngineModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.TextCoreTextEngineModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.TextCoreTextEngineModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.TextRenderingModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.TextRenderingModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.TilemapModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.TilemapModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.TLSModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.TLSModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UI">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.UI.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UIElementsModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.UIElementsModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UIElementsNativeModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.UIElementsNativeModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UIModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.UIModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UmbraModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.UmbraModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UNETModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.UNETModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UnityAnalyticsCommonModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.UnityAnalyticsCommonModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UnityAnalyticsModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.UnityAnalyticsModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UnityConnectModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.UnityConnectModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UnityCurlModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.UnityCurlModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UnityTestProtocolModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.UnityTestProtocolModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UnityWebRequestAudioModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UnityWebRequestModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.UnityWebRequestModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UnityWebRequestTextureModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UnityWebRequestWWWModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.VehiclesModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.VehiclesModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.VFXModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.VFXModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.VideoModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.VideoModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.VirtualTexturingModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.VirtualTexturingModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.VRModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.VRModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.WindModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.WindModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.XRModule">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\Il2CppAssemblies\UnityEngine.XRModule.dll</HintPath>
+		</Reference>
+		<Reference Include="MelonLoader">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\net6\MelonLoader.dll</HintPath>
+		</Reference>
+		<Reference Include="0Harmony">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\net6\0Harmony.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppInterop.Runtime">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\net6\Il2CppInterop.Runtime.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppInterop.Common">
+			<HintPath>G:\SteamLibrary\steamapps\common\Star Trucker\MelonLoader\net6\Il2CppInterop.Common.dll</HintPath>
+		</Reference>
+
+	</ItemGroup>
+
+	<PropertyGroup>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+		<BaseOutputPath>G:\SteamLibrary\steamapps\common\Star Trucker\Mods</BaseOutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Include="Core.cs" />
+		<Compile Include="Extensions.cs" />
+		<Compile Include="Patch.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="NAudio" Version="2.2.1" />
+	  <PackageReference Include="TagLibSharp" Version="2.3.0" />
+	</ItemGroup>
+	
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="COPY &quot;$(TargetPath)&quot; &quot;G:\SteamLibrary\steamapps\common\Star Trucker\Mods&quot;" />
+	</Target>
+</Project>
