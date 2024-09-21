@@ -1,9 +1,10 @@
 ﻿using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using Il2CppInterop.Runtime;
 using MelonLoader;
-using NAudio.Wave;
 using UnityEngine;
 using TagLib;
+using CSCore;
+using CSCore.Codecs;
 
 namespace StarTruckerCustomRadio
 {
@@ -15,7 +16,7 @@ namespace StarTruckerCustomRadio
         private int sampleRate = 44100;
         private int channels = 2; // Stereo
 
-        private WaveStream waveStream;
+        private IWaveSource waveSource;
 
         public TrackInfo(string path)
         {
@@ -26,26 +27,30 @@ namespace StarTruckerCustomRadio
 
         public AudioClip CreateAudioClip()
         {
-            switch (System.IO.Path.GetExtension(Path))
+            try
             {
-                case "mp3":
-                    // normal audiofile reader can apparently also read mp3's but seems to crash more often in my tests?
-                    waveStream = WaveFormatConversionStream.CreatePcmStream(new Mp3FileReader(Path));
-                    break;
-                default:
-                    waveStream = WaveFormatConversionStream.CreatePcmStream(new AudioFileReader(Path));
-                    break;
+                waveSource = CodecFactory.Instance.GetCodec(Path)
+                 .ToSampleSource()
+                 .ToWaveSource(16); // Converts the audio to 16-bit PCM
+
+                var readerCallback = DelegateSupport.ConvertDelegate<AudioClip.PCMReaderCallback>(this.OnAudioRead);
+                var posCallback = DelegateSupport.ConvertDelegate<AudioClip.PCMSetPositionCallback>(this.OnAudioSetPosition);
+
+                return AudioClip.Create(Path, (int)waveSource.Length / (channels * 2), channels, sampleRate, true, readerCallback, posCallback);
             }
 
-            var readerCallback = DelegateSupport.ConvertDelegate<AudioClip.PCMReaderCallback>(this.OnAudioRead);
-            var posCallback = DelegateSupport.ConvertDelegate<AudioClip.PCMSetPositionCallback>(this.OnAudioSetPosition);
+            catch (Exception innerEx)
+            {
+                Melon<Core>.Logger.BigError(new Exception($"Error while attempting to decode '{System.IO.Path.GetFileName(Path)}', skipping it!", innerEx).ToString());
 
-            return AudioClip.Create(Path, (int)waveStream.Length / (channels * 2), channels, sampleRate, true, readerCallback, posCallback);
+                // Create empty clip so the show can go on.
+                return AudioClip.Create(Path, 1, channels, sampleRate, false);
+            }
         }
 
         void OnAudioRead(Il2CppStructArray<float> data)
         {
-            if (waveStream == null)
+            if (waveSource == null)
             {
                 Melon<Core>.Logger.Warning($"Attempted to read from closed wave stream!");
             }
@@ -56,7 +61,7 @@ namespace StarTruckerCustomRadio
             byte[] byteBuffer = new byte[samplesToRead * 2]; // 2 bytes per sample for 16-bit PCM
 
             // Read PCM data from the MP3 file
-            int bytesRead = waveStream.Read(byteBuffer, 0, byteBuffer.Length);
+            int bytesRead = waveSource.Read(byteBuffer, 0, byteBuffer.Length);
 
             if (bytesRead > 0)
             {
@@ -85,16 +90,15 @@ namespace StarTruckerCustomRadio
         }
         void OnAudioSetPosition(int newPosition)
         {
-            waveStream.Position = newPosition * channels * 2; // 2 bytes per sample (16-bit PCM)
+            waveSource.Position = newPosition * channels * 2; // 2 bytes per sample (16-bit PCM)
         }
 
         private void CloseWaveStream()
         {
-            if (waveStream != null)
+            if (waveSource != null)
             {
-                waveStream.Close();
-                waveStream.Dispose();
-                waveStream = null;
+                waveSource.Dispose();
+                waveSource = null;
                 return;
             }
             Melon<Core>.Logger.Warning($"Attempted to close already closed wave stream!");
