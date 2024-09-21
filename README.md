@@ -6,7 +6,7 @@ A mod for Star Trucker that replaces the build in radio station with your own.
 - 🌊 Doesn't really affect the game's performance, files are streamed from disk on demand.
 - 🤠 Supports most(*) audio formats
 - 🧒 Easy installation, no modding knowledge required: just drop it in, it will create a folder, you plop in your files and you're done.
-- - ✏ Configurable:
+- ✏ Configurable:
 	- Radio station name and frequency can be configured.
 	- Folder paths can be changed.
 	- You can also choose to leave the default stings/adverts/songs enabled if you wish.
