@@ -55,7 +55,7 @@ namespace StarTruckerCustomRadio
             var readerCallback = DelegateSupport.ConvertDelegate<AudioClip.PCMReaderCallback>(this.OnAudioRead);
             var posCallback = DelegateSupport.ConvertDelegate<AudioClip.PCMSetPositionCallback>(this.OnAudioSetPosition);
 
-            audioClip = AudioClip.Create("streamy", (int)waveStream.Length / 2, channels, sampleRate, true, readerCallback, posCallback);
+            audioClip = AudioClip.Create(Path, (int)waveStream.Length / (channels * 2), channels, sampleRate, true, readerCallback, posCallback);
             return audioClip;
         }
 
@@ -138,6 +138,7 @@ namespace StarTruckerCustomRadio
             {
                 LoggerInstance.Error("Something went wrong while loading the tracks.");
                 LoggerInstance.BigError(e.ToString());
+                return;
             }
 
             // show warning if needed
