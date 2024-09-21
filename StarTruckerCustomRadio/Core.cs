@@ -128,8 +128,8 @@ namespace StarTruckerCustomRadio
                 song.songNameStringId = $"STR_CUSTOMTRACK_{index}_ARTIST";
                 StringTable.stringTable.TryAdd(song.artistNameStringId, item.Tag.Title);
                 StringTable.stringTable.TryAdd(song.songNameStringId, item.Tag.JoinedPerformers);
-                song.audioClip = item.GetAudioClip();
-                song.audioClipInstrumental = item.GetAudioClip(); // No idea if this is used but better be sure
+                song.audioClip = item.CreateAudioClip();
+                song.audioClipInstrumental = item.CreateAudioClip(); // No idea if this is used but better be sure
                 list.Add(song);
             }
             return list;

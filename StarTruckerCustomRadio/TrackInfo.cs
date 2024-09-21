@@ -12,12 +12,9 @@ namespace StarTruckerCustomRadio
         public Tag Tag;
         public string Path;
 
-        private AudioClip audioClip;
-
         private int sampleRate = 44100;
         private int channels = 2; // Stereo
 
-        private Mp3FileReader mp3Reader;
         private WaveStream waveStream;
 
         public TrackInfo(string path)
@@ -27,20 +24,32 @@ namespace StarTruckerCustomRadio
             this.Path = path;
         }
 
-        public AudioClip GetAudioClip()
+        public AudioClip CreateAudioClip()
         {
-            mp3Reader = new Mp3FileReader(Path);
-            waveStream = WaveFormatConversionStream.CreatePcmStream(mp3Reader);
+            switch (System.IO.Path.GetExtension(Path))
+            {
+                case "mp3":
+                    // normal audiofile reader can apparently also read mp3's but seems to crash more often in my tests?
+                    waveStream = WaveFormatConversionStream.CreatePcmStream(new Mp3FileReader(Path));
+                    break;
+                default:
+                    waveStream = WaveFormatConversionStream.CreatePcmStream(new AudioFileReader(Path));
+                    break;
+            }
 
             var readerCallback = DelegateSupport.ConvertDelegate<AudioClip.PCMReaderCallback>(this.OnAudioRead);
             var posCallback = DelegateSupport.ConvertDelegate<AudioClip.PCMSetPositionCallback>(this.OnAudioSetPosition);
 
-            audioClip = AudioClip.Create(Path, (int)waveStream.Length / (channels * 2), channels, sampleRate, true, readerCallback, posCallback);
-            return audioClip;
+            return AudioClip.Create(Path, (int)waveStream.Length / (channels * 2), channels, sampleRate, true, readerCallback, posCallback);
         }
 
         void OnAudioRead(Il2CppStructArray<float> data)
         {
+            if (waveStream == null)
+            {
+                Melon<Core>.Logger.Warning($"Attempted to read from closed wave stream!");
+            }
+
             int samplesToRead = data.Length;
 
             // Create a byte buffer for PCM data
@@ -68,12 +77,27 @@ namespace StarTruckerCustomRadio
                     }
                 }
             }
+
+            if (bytesRead == 0)
+            {
+                CloseWaveStream();
+            }
         }
         void OnAudioSetPosition(int newPosition)
         {
-
-            Melon<Core>.Logger.Msg("setPos " + newPosition);
             waveStream.Position = newPosition * channels * 2; // 2 bytes per sample (16-bit PCM)
+        }
+
+        private void CloseWaveStream()
+        {
+            if (waveStream != null)
+            {
+                waveStream.Close();
+                waveStream.Dispose();
+                waveStream = null;
+                return;
+            }
+            Melon<Core>.Logger.Warning($"Attempted to close already closed wave stream!");
         }
 
     }
