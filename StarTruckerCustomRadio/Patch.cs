@@ -38,17 +38,15 @@ namespace StarTruckerCustomRadio
                 StringTable.stringTable.TryAdd(Core.customRadioNameStringId, core.RadioTitle.Value);
                 StringTable.stringTable.TryAdd(Core.customRadioFreqStringId, core.RadioFreq.Value);
 
-                var goldRock = __instance.m_radioStationDef;
+                var defaultRadio = __instance.m_radioStationDef;
 
                 var radioStation = new RadioStationDescription
                 {
                     stationNameStringId = Core.customRadioNameStringId,
                     stationFreqStringId = Core.customRadioFreqStringId,
-                    songs = core.GetSongDescriptions(),
-                    adverts = new Il2CppSystem.Collections.Generic.List<RadioAdvertDescription>(),
-                    stings = new Il2CppSystem.Collections.Generic.List<RadioStingDescription>(),
-                    //adverts = goldRock.adverts,
-                    //stings = goldRock.stings,
+                    songs = core.DisableSongs.Value ? defaultRadio.Songs : core.GetSongDescriptions(),
+                    adverts = core.DisableAdverts.Value ? defaultRadio.Adverts : core.GetAdvertDescriptions(),
+                    stings = core.DisableStings.Value ? defaultRadio.Stings : core.GetStingDescriptions(),
                 };
 
                 __instance.m_radioStationDef = radioStation;
@@ -57,7 +55,6 @@ namespace StarTruckerCustomRadio
             {
                 Melon<Core>.Logger.Error(ex);
             }
-
 
         }
     }

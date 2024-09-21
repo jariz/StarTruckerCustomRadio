@@ -14,7 +14,7 @@ A mod for Star Trucker that replaces the build in radio station with your own.
 
 ----
 _[1] if CSCore supports it, we can play it, see full list: https://github.com/filoe/cscore#supported-features_  
-_[2] if TagLib supports it, we can read metadata from it, yadda yadda: https://github.com/taglib/taglib#taglib-audio-metadata-library_
+_[2] if TagLib supports it, we can read metadata - yadda yadda: https://github.com/taglib/taglib#taglib-audio-metadata-library_
 
 ## Installation
 
@@ -43,6 +43,11 @@ Drop the zip's contents in your game folder.
 You can now add files to the `Songs`, `Adverts` and `Stings` folder, once done, restart. You're done.
 
 ## Configuration
+Every aspect of this mod can be configured through your `MelonPreferences.cfg` file located in `[Game dir]\UserData`.  
+If it doesn't exist yet, run the game at least once.
+
+### All settings
+
 
 
 ## Wishlist

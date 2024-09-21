@@ -41,7 +41,7 @@ namespace StarTruckerCustomRadio
 
             catch (Exception innerEx)
             {
-                Melon<Core>.Logger.BigError(new Exception($"Error while attempting to decode '{System.IO.Path.GetFileName(Path)}', skipping it!", innerEx).ToString());
+                Melon<Core>.Logger.BigError(new Exception($"Error while attempting to decode '{Path}', skipping it!", innerEx).ToString());
 
                 // Create empty clip so the show can go on.
                 return AudioClip.Create(Path, 1, channels, sampleRate, false);
@@ -52,7 +52,7 @@ namespace StarTruckerCustomRadio
         {
             if (waveSource == null)
             {
-                Melon<Core>.Logger.Warning($"Attempted to read from closed wave stream!");
+                Melon<Core>.Logger.Warning($"Attempted to read from closed wave stream! ('{Path}')");
             }
 
             int samplesToRead = data.Length;
@@ -75,34 +75,17 @@ namespace StarTruckerCustomRadio
                 // If less data was read than requested, fill the rest with zeros
                 if (bytesRead < byteBuffer.Length)
                 {
-                    Melon<Core>.Logger.Warning($"Game requested more bytes than available! {bytesRead} < {byteBuffer.Length}");
+                    Melon<Core>.Logger.Warning($"Game requested more bytes than available! {bytesRead} < {byteBuffer.Length} ({Path})");
                     for (int i = bytesRead / 2; i < data.Length; i++)
                     {
                         data[i] = 0f;
                     }
                 }
             }
-
-            if (bytesRead == 0)
-            {
-                CloseWaveStream();
-            }
         }
         void OnAudioSetPosition(int newPosition)
         {
             waveSource.Position = newPosition * channels * 2; // 2 bytes per sample (16-bit PCM)
         }
-
-        private void CloseWaveStream()
-        {
-            if (waveSource != null)
-            {
-                waveSource.Dispose();
-                waveSource = null;
-                return;
-            }
-            Melon<Core>.Logger.Warning($"Attempted to close already closed wave stream!");
-        }
-
     }
 }
