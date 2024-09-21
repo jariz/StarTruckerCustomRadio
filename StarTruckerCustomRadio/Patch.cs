@@ -32,10 +32,11 @@ namespace StarTruckerCustomRadio
     {
         static void Prefix(HiFi __instance)
         {
+            var core = Melon<Core>.Instance;
             try
             {
-                StringTable.stringTable.TryAdd(Core.customRadioNameStringId, "CustomRadio");
-                StringTable.stringTable.TryAdd(Core.customRadioFreqStringId, "Your harddrive");
+                StringTable.stringTable.TryAdd(Core.customRadioNameStringId, core.RadioTitle.Value);
+                StringTable.stringTable.TryAdd(Core.customRadioFreqStringId, core.RadioFreq.Value);
 
                 var goldRock = __instance.m_radioStationDef;
 
@@ -43,7 +44,7 @@ namespace StarTruckerCustomRadio
                 {
                     stationNameStringId = Core.customRadioNameStringId,
                     stationFreqStringId = Core.customRadioFreqStringId,
-                    songs = Melon<Core>.Instance.GetSongDescriptions(),
+                    songs = core.GetSongDescriptions(),
                     adverts = new Il2CppSystem.Collections.Generic.List<RadioAdvertDescription>(),
                     stings = new Il2CppSystem.Collections.Generic.List<RadioStingDescription>(),
                     //adverts = goldRock.adverts,

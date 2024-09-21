@@ -7,6 +7,7 @@ using System.Reflection.PortableExecutable;
 using TagLib;
 using TagLib.Riff;
 using UnityEngine;
+using UnityEngine.Rendering.UI;
 
 [assembly: MelonInfo(typeof(StarTruckerCustomRadio.Core), "StarTruckerCustomRadio", "1.0.0", "Jari Zwarts", null)]
 [assembly: MelonGame("Monster And Monster", "Star Trucker")]
@@ -93,8 +94,6 @@ namespace StarTruckerCustomRadio
                 //audioSource.Stop();
             }
         }
-
-        // Callback method: Unity adjusts the playback position (e.g., seeking)
         void OnAudioSetPosition(int newPosition)
         {
 
@@ -104,74 +103,91 @@ namespace StarTruckerCustomRadio
 
     }
 
-    //public class StreamedAudioClip
-    //{
-    //    private int sampleRate = 44100;
-    //    private int channels = 2; // Stereo
-    //    private Mp3FileReader mp3Reader;
-    //    private WaveStream waveStream;
-
-    //    private AudioClip audioClip;
-    //    public AudioClip AudioClip { get { return audioClip; } }
-
-    //    public StreamedAudioClip(string path)
-    //    {
-    //        //// TODO: support non-mp3 formats
-    //        //mp3Reader = new Mp3FileReader(path);
-    //        //waveStream = WaveFormatConversionStream.CreatePcmStream(mp3Reader);
-
-    //        //audioClip = AudioClip.Create("streamy", sampleRate, sampleRate * channels, channels, true, (AudioClip.PCMReaderCallback)OnAudioRead, (AudioClip.PCMSetPositionCallback)OnAudioSetPosition);
-
-
-    //        // Use NAudio to load the MP3 and convert it to WAV
-    //        mp3Reader = new Mp3FileReader(path);
-    //        waveStream = WaveFormatConversionStream.CreatePcmStream(mp3Reader);
-    //        byte[] buffer = new byte[waveStream.Length];
-    //        waveStream.Read(buffer, 0, buffer.Length);
-
-    //        // Create an AudioClip from WAV data
-    //        audioClip = AudioClip.Create("LoadedMP3", buffer.Length / 2, 2, 44100, false);
-    //        audioClip.SetData(ConvertByteToFloatArray(buffer), 0);
-    //    }
-
-    //    private float[] ConvertByteToFloatArray(byte[] input)
-    //    {
-    //        // Convert WAV byte data to float array
-    //        int len = input.Length / 2;
-    //        float[] result = new float[len];
-    //        for (int i = 0; i < len; i++)
-    //        {
-    //            result[i] = (short)(input[i * 2] | input[i * 2 + 1] << 8) / 32768f;
-    //        }
-    //        return result;
-    //    }
-
-    //    // Callback method: Unity requests more audio data for the streaming clip
-        
-    //}
-
     public class Core : MelonMod
     {
         public static string customRadioNameStringId = "STR_CUSTOM_RADIO_NAME";
         public static string customRadioFreqStringId = "STR_CUSTOM_RADIO_FREQ";
+
+        public static int minTracks = 10;
+        public static int warningSeconds = 20;
+
         private List<TrackInfo> trackInfos = new List<TrackInfo>();
+
+        public MelonPreferences_Entry<string> RadioTitle;
+        public MelonPreferences_Entry<string> RadioFreq;
+        public MelonPreferences_Entry<string> MusicDir;
 
         public override void OnInitializeMelon()
         {
             try
             {
-                LoggerInstance.Msg("Loading tracks...");
-                LoggerInstance.WriteSpacer();
-                foreach (string path in Directory.EnumerateFiles("C:\\Users\\jari2\\Documents\\radio"))
-                {
-                    trackInfos.Add(new TrackInfo(path));
-                }
-            }catch (Exception e)
+                LoadSettings();
+            }
+            catch (Exception e)
             {
-                LoggerInstance.Error("Unable to initialize custom radio mod.");
+                LoggerInstance.Error("Unable to initialize options.");
+                LoggerInstance.BigError(e.ToString());
+                return;
+            }
+
+            try
+            {
+                LoadTracks();
+            }
+            catch (Exception e)
+            {
+                LoggerInstance.Error("Something went wrong while loading the tracks.");
                 LoggerInstance.BigError(e.ToString());
             }
-           
+
+            // show warning if needed
+            if (trackInfos.Count < minTracks)
+            {
+                MelonEvents.OnGUI.Subscribe(DrawWarning, 100);
+            }
+
+            MelonPreferences.Save();
+        }
+
+        private void LoadSettings ()
+        {
+            var prefs = MelonPreferences.CreateCategory("CustomRadio");
+
+            RadioTitle = prefs.CreateEntry<string>("RadioTitle", "CustomRadio");
+            RadioFreq = prefs.CreateEntry<string>("RadioFrequency", "Mod by: JariZ");
+            var defaultBaseDir = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic), "StarTruckerCustomRadio");
+            MusicDir = prefs.CreateEntry<string>("RadioSongsDir", Path.Join(defaultBaseDir, "Songs"));
+
+            if (!Directory.Exists(MusicDir.Value))
+            {
+                Directory.CreateDirectory(MusicDir.Value);
+                LoggerInstance.Warning($"Created new music directory:");
+                LoggerInstance.Warning($"   {MusicDir.Value}");
+            }
+
+            prefs.SaveToFile();
+        }
+
+        private void LoadTracks()
+        {
+            LoggerInstance.Msg("Loading tracks...");
+            LoggerInstance.WriteSpacer();
+            foreach (string path in Directory.EnumerateFiles(MusicDir.Value))
+            {
+                trackInfos.Add(new TrackInfo(path));
+            }
+        }
+
+        private void DrawWarning()
+        {
+            if (Time.realtimeSinceStartup < warningSeconds)
+            {
+                GUIStyle style = new GUIStyle();
+                style.alignment = TextAnchor.UpperLeft;
+                style.normal.textColor = Color.yellow;
+                style.fontStyle = FontStyle.Bold;
+                GUI.Box(new Rect(20, 50, 600, 70), $"CustomRadio mod: less than {minTracks} tracks were loaded, please add more tracks to your music folder, the game will start to act weird if you don't.\nIt can be located at: {MusicDir.Value}\nThis message will hide after {warningSeconds} secs.", style);
+            }
         }
 
         public Il2CppSystem.Collections.Generic.List<SongDescription> GetSongDescriptions()
@@ -185,7 +201,7 @@ namespace StarTruckerCustomRadio
                 {
                     song.name = Path.GetFileName(item.Path);
                 }
-                
+
                 song.artistNameStringId = $"STR_CUSTOMTRACK_{index}_TITLE";
                 song.songNameStringId = $"STR_CUSTOMTRACK_{index}_ARTIST";
                 StringTable.stringTable.TryAdd(song.artistNameStringId, item.Tag.Title);
