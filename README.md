@@ -13,7 +13,7 @@ A mod for Star Trucker that replaces the build in radio station with your own.
 	- More [below](#configuration)
 
 ----
-_[1] if CSCore supports it, we can play it, see full list: https://github.com/filoe/cscore#supported-features_
+_[1] if CSCore supports it, we can play it, see full list: https://github.com/filoe/cscore#supported-features_  
 _[2] if TagLib supports it, we can read metadata from it, yadda yadda: https://github.com/taglib/taglib#taglib-audio-metadata-library_
 
 ## Installation
