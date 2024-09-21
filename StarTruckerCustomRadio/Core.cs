@@ -192,7 +192,6 @@ namespace StarTruckerCustomRadio
                 sting.name = Path.GetFileName(item.Path);
                 sting.audioClip = item.CreateAudioClip();
                 list.Add(sting);
-                LoggerInstance.Msg($"Unlocked?   {sting.IsUnlocked}");
             }
             return list;
         }
