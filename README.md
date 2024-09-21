@@ -3,9 +3,10 @@
 A mod for Star Trucker that replaces the build in radio station with your own.
 
 - ♻ Replace songs, adverts and [stings](https://en.wikipedia.org/wiki/Sting_(musical_phrase)) with your own files.
-- 🌊 Doesn't really affect the game's performance, files are streamed from disk on demand.
-- 🤠 Supports most(*) audio formats
+- 🤠 Supports most[1] audio formats
+- 🎸 Shows title and artists in game if present in file metadata[2].
 - 🧒 Easy installation, no modding knowledge required: just drop it in, it will create a folder, you plop in your files and you're done.
+- 🌊 Doesn't really affect the game's performance, files are streamed from disk on demand.
 - - ✏ Configurable:
 	- Radio station name and frequency can be configured.
 	- Folder paths can be changed.
@@ -13,7 +14,8 @@ A mod for Star Trucker that replaces the build in radio station with your own.
 	- More [below](#configuration)
 
 ----
-_\* = see full list of supported codecs here: https://github.com/filoe/cscore#supported-features_
+_[1] if CSCore supports it, we can play it, see full list: https://github.com/filoe/cscore#supported-features_
+_[2] if TagLib supports it, we can read metadata from it, yadda yadda: https://github.com/taglib/taglib#taglib-audio-metadata-library_
 
 ## Installation
 
