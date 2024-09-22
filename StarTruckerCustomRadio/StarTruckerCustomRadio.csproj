@@ -394,7 +394,7 @@
 		<Compile Include="Core.cs" />
 		<Compile Include="Extensions.cs" />
 		<Compile Include="Patch.cs" />
-		<Compile Include="TrackInfo.cs" />
+		<Compile Include="FileTrackSource.cs" />
 	</ItemGroup>
 	
 	<ItemGroup>
