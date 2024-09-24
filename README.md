@@ -31,7 +31,7 @@ While installing MelonLoader, choose `Star Trucker.exe`.
 
 ### 2. Install the mod
 Get the [latest release from here](https://github.com/jariz/StarTruckerCustomRadio/releases).  
-Drop the zip's contents (BOTH the `Mods` folder and `UserLibs` folder) in your game folder.
+Drop the `Mods` folder and `UserLibs` folder included in the zip into your game folder.
 
 ### 3. First run
 1. Start the game, if all went well you should see the following warning message:
