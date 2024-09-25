@@ -48,16 +48,16 @@ Every aspect of this mod can be configured through your `MelonPreferences.cfg` f
 If the file / settings don't exist yet, run the game (with the mod loaded!) at least once.
 
 ### All settings
-| Key                         | Default value                                | Description                                                                                                 |
-| --------------------------- | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `RadioTitle`                | `CustomRadio`                                | ![Star_Trucker_c3sV4CQcQs](https://github.com/user-attachments/assets/2aaf30e2-5f44-4d14-9752-5384b802ec42) |
-| `RadioFrequency`            | `Mod by: JariZ`                              | ![Star_Trucker_LXWq6FSQjh](https://github.com/user-attachments/assets/95a66ff9-ba3e-495e-a6be-b420dc305278) |
-| `RadioSongsDir`             | `[MusicFolder]\StarTruckCustomRadio\Songs`   | The path to your songs directory.                                                                           |
-| `RadioAdvertsDir`           | `[MusicFolder]\StarTruckCustomRadio\Adverts` | The path to your adverts directory.                                                                         |
-| `RadioStingsDir`            | `[MusicFolder]\StarTruckCustomRadio\Stings`  | The path to your stings directory.                                                                          |
-| `RadioDisableCustomSongs`   | `false`                                      | If set to `true`, the game's default songs will not be replaced with your own.                              |
-| `RadioDisableCustomStings`  | `false`                                      | If set to `true`, the game's default stings will not be replaced with your own.                             |
-| `RadioDisableCustomAdverts` | `false`                                      | If set to `true`, the game's default adverts will not be replaced with your own.                            |
+| Key                         | Default value                                        | Description                                                                      |
+| --------------------------- | ---------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `RadioTitle`                | `CustomRadio`                                        | ![Star_Trucker_c3sV4CQcQs](https://github.com/user-attachments/assets/2aaf30e2-5f44-4d14-9752-5384b802ec42)                                                                                 |
+| `RadioFrequency`            | `Mod by: JariZ`                                      | ![Star_Trucker_LXWq6FSQjh](https://github.com/user-attachments/assets/95a66ff9-ba3e-495e-a6be-b420dc305278)                                                                                 |
+| `RadioSongsDir`             | `[MusicFolder]\StarTruckCustomRadio\Songs`   | The path to your songs directory.                                                |
+| `RadioAdvertsDir`           | `[MusicFolder]\StarTruckCustomRadio\Adverts` | The path to your adverts directory.                                              |
+| `RadioStingsDir`            | `[MusicFolder]\StarTruckCustomRadio\Stings`  | The path to your stings directory.                                               |
+| `RadioDisableCustomSongs`   | `false`                                              | If set to `true`, the game's default songs will not be replaced with your own.   |
+| `RadioDisableCustomStings`  | `false`                                              | If set to `true`, the game's default stings will not be replaced with your own.  |
+| `RadioDisableCustomAdverts` | `false`                                              | If set to `true`, the game's default adverts will not be replaced with your own. |
 
 ## Wishlist
 

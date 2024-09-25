@@ -1,5 +1,4 @@
-﻿using Harmony;
-using Il2Cpp;
+﻿using Il2Cpp;
 using MelonLoader;
 using System.Data;
 using UnityEngine;
@@ -17,9 +16,9 @@ namespace StarTruckerCustomRadio
         public static int minSongs = 10;
         public static int messageOnScreenSecs = 20;
 
-        private List<TrackSource> loadedSongs = new List<TrackSource>();
-        private List<TrackSource> loadedAdverts = new List<TrackSource>();
-        private List<TrackSource> loadedStings = new List<TrackSource>();
+        private List<TrackInfo> loadedSongs = new List<TrackInfo>();
+        private List<TrackInfo> loadedAdverts = new List<TrackInfo>();
+        private List<TrackInfo> loadedStings = new List<TrackInfo>();
 
         public Exception initError = null;
 
@@ -102,25 +101,22 @@ namespace StarTruckerCustomRadio
         private void LoadTracks()
         {
             LoggerInstance.WriteSpacer();
-            //LoggerInstance.Msg("Loading tracks...");
-            //foreach (string path in Directory.EnumerateFiles(MusicDir.Value))
-            //{
-            //    loadedSongs.Add(new FileTrackSource(path));
-            //}
-
-            loadedSongs.Add(new UriTrackSource("https://intenseradio.live-streams.nl:18000/live"));
-
+            LoggerInstance.Msg("Loading tracks...");
+            foreach (string path in Directory.EnumerateFiles(MusicDir.Value))
+            {
+                loadedSongs.Add(new TrackInfo(path));
+            }
             LoggerInstance.Msg($"- Loaded {loadedSongs.Count} songs");
 
             foreach (string path in Directory.EnumerateFiles(AdvertsDir.Value))
             {
-                loadedAdverts.Add(new FileTrackSource(path));
+                loadedAdverts.Add(new TrackInfo(path));
             }
             LoggerInstance.Msg($"- Loaded {loadedAdverts.Count} adverts!");
 
             foreach (string path in Directory.EnumerateFiles(StingsDir.Value))
             {
-                loadedStings.Add(new FileTrackSource(path));
+                loadedStings.Add(new TrackInfo(path));
             }
             LoggerInstance.Msg($"- Loaded {loadedStings.Count} stings!");
             LoggerInstance.WriteSpacer();
@@ -156,11 +152,16 @@ namespace StarTruckerCustomRadio
             foreach (var (item, index) in loadedSongs.WithIndex())
             {
                 var song = new SongDescription();
+                song.name = $"{item.Tag.Title} - {item.Tag.JoinedPerformers}";
+                if (item.Tag.IsEmpty)
+                {
+                    song.name = Path.GetFileName(item.Path);
+                }
+
                 song.artistNameStringId = $"STR_CUSTOMTRACK_{index}_TITLE";
                 song.songNameStringId = $"STR_CUSTOMTRACK_{index}_ARTIST";
-                var metaData = item.GetMetadata();
-                StringTable.stringTable.TryAdd(song.artistNameStringId, metaData.Title);
-                StringTable.stringTable.TryAdd(song.songNameStringId, metaData.Artist);
+                StringTable.stringTable.TryAdd(song.artistNameStringId, item.Tag.Title);
+                StringTable.stringTable.TryAdd(song.songNameStringId, item.Tag.JoinedPerformers);
                 song.audioClip = item.CreateAudioClip();
                 song.audioClipInstrumental = item.CreateAudioClip(); // No idea if this is used but better be sure
                 list.Add(song);
@@ -174,8 +175,7 @@ namespace StarTruckerCustomRadio
             foreach (var (item, index) in loadedStings.WithIndex())
             {
                 var sting = new RadioStingDescription();
-                var metaData = item.GetMetadata();
-                sting.name = Path.GetFileName(metaData.Title);
+                sting.name = Path.GetFileName(item.Path);
                 sting.audioClip = item.CreateAudioClip();
                 list.Add(sting);
             }
@@ -188,8 +188,8 @@ namespace StarTruckerCustomRadio
             foreach (var (item, index) in loadedStings.WithIndex())
             {
                 var sting = new RadioAdvertDescription();
-                var metaData = item.GetMetadata();
-                sting.name = Path.GetFileName(metaData.Title);
+                
+                sting.name = Path.GetFileName(item.Path);
                 sting.audioClip = item.CreateAudioClip();
                 list.Add(sting);
             }
