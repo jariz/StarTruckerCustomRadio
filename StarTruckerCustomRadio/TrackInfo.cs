@@ -30,7 +30,9 @@ namespace StarTruckerCustomRadio
             try
             {
                 waveSource = CodecFactory.Instance.GetCodec(Path)
+                 .ChangeSampleRate(sampleRate)
                  .ToSampleSource()
+                 .ToStereo()
                  .ToWaveSource(16); // Converts the audio to 16-bit PCM
 
                 var readerCallback = DelegateSupport.ConvertDelegate<AudioClip.PCMReaderCallback>(this.OnAudioRead);
