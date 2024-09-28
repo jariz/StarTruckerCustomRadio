@@ -1,9 +1,6 @@
 ﻿using HarmonyLib;
 using Il2Cpp;
 using MelonLoader;
-using System.Diagnostics;
-using System.Text;
-using UnityEngine;
 
 namespace StarTruckerCustomRadio
 {

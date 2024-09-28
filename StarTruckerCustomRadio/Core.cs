@@ -14,7 +14,7 @@ namespace StarTruckerCustomRadio
         public static string customRadioNameStringId = "STR_CUSTOM_RADIO_NAME";
         public static string customRadioFreqStringId = "STR_CUSTOM_RADIO_FREQ";
 
-        public static int minSongs = 10;
+        public static int minTracks = 10;
         public static int messageOnScreenSecs = 20;
 
         private List<TrackInfo> loadedSongs = new List<TrackInfo>();
@@ -147,9 +147,9 @@ namespace StarTruckerCustomRadio
             LoggerInstance.Msg($"- Loaded {loadedStings.Count} stings!");
             LoggerInstance.WriteSpacer();
 
-            if (loadedSongs.Count < minSongs)
+            if ((loadedSongs.Count + loadedAdverts.Count + loadedStings.Count) < minTracks)
             {
-                initWarning += $"Less than {minSongs} songs were loaded, please add more songs to the music folder, the game will start to act weird if you don't.\nIt can be located at: {MusicDir.Value}\n\n";
+                initWarning += $"Less than {minTracks} total tracks were loaded, please add more tracks to the folders, the game will start to act weird if you don't.\nThe songs directory can found at: {MusicDir.Value}\n\n";
             }
 
             if (failedTracks.Count > 0)
@@ -192,8 +192,8 @@ namespace StarTruckerCustomRadio
             foreach (var (item, index) in loadedSongs.WithIndex())
             {
                 var song = new SongDescription();
-                
-                var title = item.Tag.Title.IsNullOrEmpty() ? Path.GetFileName(item.Path) : item.Tag.Title;
+
+                var title = item.Tag.Title.IsNullOrEmpty() ? Path.GetFileNameWithoutExtension(item.Path) : item.Tag.Title;
                 var artists = item.Tag.JoinedPerformers.IsNullOrEmpty() ? "Unknown" : item.Tag.JoinedPerformers;
 
                 song.name = $"{title} - {artists}";
