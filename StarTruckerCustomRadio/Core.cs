@@ -1,4 +1,5 @@
 ﻿using Il2Cpp;
+using Il2CppPlatformLayer;
 using MelonLoader;
 using System.Data;
 using UnityEngine;
@@ -21,6 +22,7 @@ namespace StarTruckerCustomRadio
         private List<TrackInfo> loadedStings = new List<TrackInfo>();
 
         public Exception initError = null;
+        public string initWarning = "";
 
         public MelonPreferences_Entry<string> RadioTitle;
         public MelonPreferences_Entry<string> RadioFreq;
@@ -36,7 +38,6 @@ namespace StarTruckerCustomRadio
         public override void OnInitializeMelon()
         {
             MelonEvents.OnGUI.Subscribe(DrawInitError, 100);
-            // should probably also unsubscribe but in a world where shipping things like electron is the norm? who cares
 
             try
             {
@@ -55,13 +56,13 @@ namespace StarTruckerCustomRadio
             }
             catch (Exception e)
             {
-                initError =  new Exception("Error while loading custom radio tracks.", e);
+                initError = new Exception("Error while loading custom radio tracks.", e);
                 LoggerInstance.BigError(initError.ToString());
                 return;
             }
 
             // show warning if needed
-            if (loadedSongs.Count < minSongs)
+            if (initWarning.IsNotNullOrEmpty())
             {
                 MelonEvents.OnGUI.Subscribe(DrawInitWarning, 100);
             }
@@ -69,7 +70,7 @@ namespace StarTruckerCustomRadio
             MelonPreferences.Save();
         }
 
-        private void LoadSettings ()
+        private void LoadSettings()
         {
             var prefs = MelonPreferences.CreateCategory("CustomRadio");
 
@@ -91,7 +92,7 @@ namespace StarTruckerCustomRadio
                 {
                     Directory.CreateDirectory(path);
                     LoggerInstance.Warning($"Created new directory:");
-                    LoggerInstance.Warning($"   {MusicDir.Value}");
+                    LoggerInstance.Warning($"   {path}");
                 }
             }
 
@@ -100,26 +101,65 @@ namespace StarTruckerCustomRadio
 
         private void LoadTracks()
         {
+            var failedTracks = new List<string>();
             LoggerInstance.WriteSpacer();
             LoggerInstance.Msg("Loading tracks...");
             foreach (string path in Directory.EnumerateFiles(MusicDir.Value))
             {
-                loadedSongs.Add(new TrackInfo(path));
+                try
+                {
+                    loadedSongs.Add(new TrackInfo(path));
+                }
+                catch (Exception ex)
+                {
+                    LoggerInstance.Warning($"Failed to load '{Path.GetFileName(path)}' from Songs dir:\n{ex}");
+                    failedTracks.Add(path);
+                }
             }
             LoggerInstance.Msg($"- Loaded {loadedSongs.Count} songs");
 
             foreach (string path in Directory.EnumerateFiles(AdvertsDir.Value))
             {
-                loadedAdverts.Add(new TrackInfo(path));
+                try
+                {
+                    loadedAdverts.Add(new TrackInfo(path));
+                }
+                catch (Exception ex)
+                {
+                    LoggerInstance.Warning($"Failed to load '{Path.GetFileName(path)}' from Songs dir:\n{ex}");
+                    failedTracks.Add(path);
+                }
             }
             LoggerInstance.Msg($"- Loaded {loadedAdverts.Count} adverts!");
 
             foreach (string path in Directory.EnumerateFiles(StingsDir.Value))
             {
-                loadedStings.Add(new TrackInfo(path));
+                try
+                {
+                    loadedStings.Add(new TrackInfo(path));
+                }
+                catch (Exception ex)
+                {
+                    LoggerInstance.Warning($"Failed to load '{Path.GetFileName(path)}' from Songs dir:\n{ex}");
+                    failedTracks.Add(path);
+                }
             }
             LoggerInstance.Msg($"- Loaded {loadedStings.Count} stings!");
             LoggerInstance.WriteSpacer();
+
+            if (loadedSongs.Count < minSongs)
+            {
+                initWarning += $"Less than {minSongs} songs were loaded, please add more songs to the music folder, the game will start to act weird if you don't.\nIt can be located at: {MusicDir.Value}\n\n";
+            }
+
+            if (failedTracks.Count > 0)
+            {
+                var displayedTracks = failedTracks
+                    .Select(path =>
+                        Path.Combine(Directory.GetParent(path).Name, Path.GetFileName(path))
+                    );
+                initWarning += $"The following files failed to load and were skipped:\n- {string.Join("\n - ", displayedTracks)}\nRead the console/log for more information.\n\n";
+            }
         }
 
         private void DrawInitWarning()
@@ -130,7 +170,7 @@ namespace StarTruckerCustomRadio
                 style.alignment = TextAnchor.UpperLeft;
                 style.normal.textColor = Color.yellow;
                 style.fontStyle = FontStyle.Bold;
-                GUI.Box(new Rect(20, 50, 600, 70), $"CustomRadio mod: less than {minSongs} songs were loaded, please add more songs to the music folder, the game will start to act weird if you don't.\nIt can be located at: {MusicDir.Value}\nThis message will hide after {messageOnScreenSecs} secs.", style);
+                GUI.Box(new Rect(20, 50, 600, 600), $"CustomRadio mod: {initWarning}\nThis message will hide after {messageOnScreenSecs} secs.", style);
             }
         }
 
@@ -139,10 +179,10 @@ namespace StarTruckerCustomRadio
             if (initError != null && Time.realtimeSinceStartup < messageOnScreenSecs)
             {
                 GUIStyle style = new GUIStyle();
-                style.alignment = TextAnchor.UpperLeft;
+                style.alignment = TextAnchor.UpperRight;
                 style.normal.textColor = Color.red;
                 style.fontStyle = FontStyle.Bold;
-                GUI.Box(new Rect(Screen.width - 600, 50, 600, 70), $"CustomRadio mod: {initError}\nThis message will hide after {messageOnScreenSecs} secs.", style);
+                GUI.Box(new Rect(Screen.width - 600, 50, 600, 600), $"CustomRadio mod: {initError}\nThis message will hide after {messageOnScreenSecs} secs.", style);
             }
         }
 
@@ -152,16 +192,15 @@ namespace StarTruckerCustomRadio
             foreach (var (item, index) in loadedSongs.WithIndex())
             {
                 var song = new SongDescription();
-                song.name = $"{item.Tag.Title} - {item.Tag.JoinedPerformers}";
-                if (item.Tag.IsEmpty)
-                {
-                    song.name = Path.GetFileName(item.Path);
-                }
+                
+                var title = item.Tag.Title.IsNullOrEmpty() ? Path.GetFileName(item.Path) : item.Tag.Title;
+                var artists = item.Tag.JoinedPerformers.IsNullOrEmpty() ? "Unknown" : item.Tag.JoinedPerformers;
 
+                song.name = $"{title} - {artists}";
                 song.artistNameStringId = $"STR_CUSTOMTRACK_{index}_TITLE";
                 song.songNameStringId = $"STR_CUSTOMTRACK_{index}_ARTIST";
-                StringTable.stringTable.TryAdd(song.artistNameStringId, item.Tag.Title);
-                StringTable.stringTable.TryAdd(song.songNameStringId, item.Tag.JoinedPerformers);
+                StringTable.stringTable.TryAdd(song.artistNameStringId, title);
+                StringTable.stringTable.TryAdd(song.songNameStringId, artists);
                 song.audioClip = item.CreateAudioClip();
                 song.audioClipInstrumental = item.CreateAudioClip(); // No idea if this is used but better be sure
                 list.Add(song);
@@ -172,7 +211,7 @@ namespace StarTruckerCustomRadio
         public Il2CppSystem.Collections.Generic.List<RadioStingDescription> GetStingDescriptions()
         {
             var list = new Il2CppSystem.Collections.Generic.List<RadioStingDescription>();
-            foreach (var (item, index) in loadedStings.WithIndex())
+            foreach (var item in loadedStings)
             {
                 var sting = new RadioStingDescription();
                 sting.name = Path.GetFileName(item.Path);
@@ -185,13 +224,13 @@ namespace StarTruckerCustomRadio
         public Il2CppSystem.Collections.Generic.List<RadioAdvertDescription> GetAdvertDescriptions()
         {
             var list = new Il2CppSystem.Collections.Generic.List<RadioAdvertDescription>();
-            foreach (var (item, index) in loadedStings.WithIndex())
+            foreach (var item in loadedAdverts)
             {
-                var sting = new RadioAdvertDescription();
-                
-                sting.name = Path.GetFileName(item.Path);
-                sting.audioClip = item.CreateAudioClip();
-                list.Add(sting);
+                var advert = new RadioAdvertDescription();
+
+                advert.name = Path.GetFileName(item.Path);
+                advert.audioClip = item.CreateAudioClip();
+                list.Add(advert);
             }
             return list;
         }
